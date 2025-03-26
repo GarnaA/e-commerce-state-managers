@@ -27,23 +27,79 @@ const CartProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = (product, id) => {
-    // your code
+    const newCart = [];
+    let found = false;
+  
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
+  
+      if (item.id === id) {
+        found = true;
+  
+        newCart.push({ ...item, amount: item.amount + 1 });
+      } else {
+        newCart.push(item);
+      }
+    }
+  
+    if (!found) {
+      newCart.push({ ...product, amount: 1 });
+    }
+  
+    setCart(newCart);
   };
-
+  
   const removeFromCart = (id) => {
-    // your code
+    let newCart = [];
+    let found = false;
+  
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        found = true;
+        if (cart[i].amount > 1) {
+          newCart.push({ ...cart[i], amount: cart[i].amount - 1 });
+        }
+      } else {
+        newCart.push(cart[i]);
+      }
+    }
+    if (found) {
+      setCart(newCart);
+    }
   };
 
   const clearCart = () => {
-    // your code
+    setCart([])
   };
 
   const increaseAmount = (id) => {
-    // your code
+    let newCart = [];
+    
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        newCart.push({ ...cart[i], amount: cart[i].amount + 1 });
+      } else {
+        newCart.push(cart[i]);
+      }
+    }
+    
+    setCart(newCart);
   };
-
+  
   const decreaseAmount = (id) => {
-    // your code
+    let newCart = [];
+    
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        if (cart[i].amount > 1) {
+          newCart.push({ ...cart[i], amount: cart[i].amount - 1 });
+        }
+      } else {
+        newCart.push(cart[i]);
+      }
+    }
+  
+    setCart(newCart);
   };
 
   return (
