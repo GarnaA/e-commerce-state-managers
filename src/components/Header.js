@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSidebar from "../stores/useSidebarStore";
-import { CartContext } from "../contexts/CartContext";
+import useCart from "../stores/useCartStore";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
 import { BsBag } from "react-icons/bs";
@@ -9,7 +9,7 @@ const Header = () => {
   // header state
   const [isActive, setIsActive] = useState(false);
   const { isOpen, setIsOpen} = useSidebar();
-  const { itemAmount } = useContext(CartContext);
+  const { itemAmount } = useCart();
 
   // event listener
   useEffect(() => {

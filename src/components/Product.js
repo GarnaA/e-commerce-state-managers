@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { BsPlus, BsEyeFill } from "react-icons/bs";
 
-import { CartContext } from "../contexts/CartContext";
+import useCart from "../stores/useCartStore";
 
 const Product = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
 
   // destructure product
   const { id, image, category, title, price } = product;

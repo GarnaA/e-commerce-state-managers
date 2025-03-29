@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -7,11 +7,26 @@ import { FiTrash2 } from "react-icons/fi";
 
 import CartItem from "../components/CartItem";
 import useSidebar from "../stores/useSidebarStore";
-import { CartContext } from "../contexts/CartContext";
+import useCart from "../stores/useCartStore";
 
 const Sidebar = () => {
   const { isOpen, handleClose } = useSidebar();
-  const { cart, clearCart, itemAmount, total } = useContext(CartContext);
+  const { cart, clearCart, itemAmount, total, setItemAmount, setTotal } = useCart();
+
+  useEffect(() => {
+    if (cart) {
+      const amount = cart.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.amount;
+      }, 0);
+
+      const total = cart.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.price * currentItem.amount;
+      }, 0);
+
+      setTotal(total);
+      setItemAmount(amount);
+    }
+  }, [cart, setItemAmount, setTotal]);
 
   return (
     <div
