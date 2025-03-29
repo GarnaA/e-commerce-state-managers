@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
-import { ProductContext } from "../contexts/ProductContext";
+import React, { useEffect } from "react";
 import Product from '../components/Product'
 import Hero from '../components/Hero'
+import useProduct from "../stores/useProductStore";
 
 const Home = () => {
-  const { products } = useContext(ProductContext);
+  const { products, setProducts } = useProduct()
 
-  console.log(products);
+    useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const data = await response.json();
+      setProducts(data);
+    };
+    fetchProducts();
+  }, [setProducts]);
 
   const filteredProducts = products.filter((item) => {
     return (
