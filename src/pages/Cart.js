@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
 
 import CartItem from "../components/CartItem";
-import { SidebarContext } from "../contexts/SidebarContext";
+import useSidebar from "../stores/useSidebarStore";
 import { CartContext } from "../contexts/CartContext";
 
 const Cart = () => {
-  const { isOpen, handleClose } = useContext(SidebarContext);
+  const { isOpen, handleClose} = useSidebar();
   const { cart, clearCart, itemAmount, total } = useContext(CartContext);
 
   useEffect(() => {
