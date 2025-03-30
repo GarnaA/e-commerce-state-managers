@@ -9,7 +9,8 @@ import useSidebar from "../stores/useSidebarStore";
 import useCart from "../stores/useCartStore";
 
 const Cart = () => {
-  const { isOpen, handleClose} = useSidebar();
+  const isOpen = useSidebar.use.isOpen();
+  const handleClose = useSidebar.use.handleClose();
   const { cart, clearCart, itemAmount, total } = useCart();
 
 

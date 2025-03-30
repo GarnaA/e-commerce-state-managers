@@ -8,7 +8,8 @@ import { BsBag } from "react-icons/bs";
 const Header = () => {
   // header state
   const [isActive, setIsActive] = useState(false);
-  const { isOpen, setIsOpen} = useSidebar();
+  const isOpen = useSidebar.use.isOpen();
+  const setIsOpen = useSidebar.use.setIsOpen();
   const { itemAmount } = useCart();
 
   // event listener

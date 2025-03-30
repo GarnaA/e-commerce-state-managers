@@ -10,7 +10,8 @@ import useSidebar from "../stores/useSidebarStore";
 import useCart from "../stores/useCartStore";
 
 const Sidebar = () => {
-  const { isOpen, handleClose } = useSidebar();
+  const isOpen = useSidebar.use.isOpen();
+  const handleClose = useSidebar.use.handleClose();
   const { cart, clearCart, itemAmount, total, setItemAmount, setTotal } = useCart();
 
   useEffect(() => {
