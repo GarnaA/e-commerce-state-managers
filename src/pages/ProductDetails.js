@@ -5,7 +5,7 @@ import useProduct from "../stores/useProductStore";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const addToCart = useCart.use.addToCart();
   const products = useProduct.use.products();
 
   const product = products.find((item) => {

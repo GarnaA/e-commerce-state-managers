@@ -7,7 +7,9 @@ import useCart from "../stores/useCartStore";
 
 const CartItem = ({ item }) => {
   
-  const { removeFromCart, increaseAmount, decreaseAmount } = useCart();
+  const removeFromCart = useCart.use.removeFromCart();
+  const increaseAmount = useCart.use.increaseAmount();
+  const decreaseAmount = useCart.use.decreaseAmount();
   // destructure item
   const { id, title, image, price, amount } = item;
 

@@ -12,7 +12,12 @@ import useCart from "../stores/useCartStore";
 const Sidebar = () => {
   const isOpen = useSidebar.use.isOpen();
   const handleClose = useSidebar.use.handleClose();
-  const { cart, clearCart, itemAmount, total, setItemAmount, setTotal } = useCart();
+  const cart = useCart.use.cart();
+  const clearCart = useCart.use.clearCart();
+  const itemAmount = useCart.use.itemAmount();
+  const total = useCart.use.total();
+  const setItemAmount = useCart.use.setItemAmount();
+  const setTotal = useCart.use.setTotal();
 
   useEffect(() => {
     if (cart) {

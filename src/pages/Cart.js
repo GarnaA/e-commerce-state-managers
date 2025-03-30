@@ -11,8 +11,10 @@ import useCart from "../stores/useCartStore";
 const Cart = () => {
   const isOpen = useSidebar.use.isOpen();
   const handleClose = useSidebar.use.handleClose();
-  const { cart, clearCart, itemAmount, total } = useCart();
-
+  const cart = useCart.use.cart();
+  const clearCart = useCart.use.clearCart();
+  const itemAmount = useCart.use.itemAmount();
+  const total = useCart.use.total();
 
   useEffect(() => {
     if (isOpen) handleClose()

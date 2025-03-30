@@ -10,7 +10,7 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const isOpen = useSidebar.use.isOpen();
   const setIsOpen = useSidebar.use.setIsOpen();
-  const { itemAmount } = useCart();
+  const itemAmount = useCart.use.itemAmount();
 
   // event listener
   useEffect(() => {
