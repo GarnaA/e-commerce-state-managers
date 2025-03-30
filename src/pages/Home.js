@@ -4,7 +4,8 @@ import Hero from '../components/Hero'
 import useProduct from "../stores/useProductStore";
 
 const Home = () => {
-  const { products, setProducts } = useProduct()
+  const products = useProduct.use.products();
+  const setProducts = useProduct.use.setProducts();
 
     useEffect(() => {
     const fetchProducts = async () => {

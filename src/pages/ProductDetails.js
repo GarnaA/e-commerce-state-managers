@@ -6,7 +6,7 @@ import useProduct from "../stores/useProductStore";
 const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const { products } = useProduct();
+  const products = useProduct.use.products();
 
   const product = products.find((item) => {
     return item.id === parseInt(id);
