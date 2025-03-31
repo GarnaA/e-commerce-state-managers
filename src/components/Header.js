@@ -6,13 +6,11 @@ import Logo from "../img/logo.svg";
 import { BsBag } from "react-icons/bs";
 
 const Header = () => {
-  // header state
   const [isActive, setIsActive] = useState(false);
   const isOpen = useSidebar((state) => state.isOpen);
   const setIsOpen = useSidebar((state) => state.setIsOpen);
   const itemAmount = useCart((state) => state.itemAmount)
 
-  // event listener
   useEffect(() => {
     window.addEventListener("scroll", () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
@@ -32,7 +30,6 @@ const Header = () => {
           </div>
         </Link>
 
-        {/* cart */}
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="cursor-pointer flex relative"
