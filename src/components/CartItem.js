@@ -6,8 +6,10 @@ import { IoMdAdd, IoMdClose, IoMdRemove } from "react-icons/io";
 import useCart from "../stores/useCartStore";
 
 const CartItem = ({ item }) => {
-  
-  const { removeFromCart, increaseAmount, decreaseAmount } = useCart();
+  const removeFromCart = useCart((state) => state.removeFromCart);
+  const increaseAmount = useCart((state) => state.increaseAmount);
+  const decreaseAmount = useCart((state) => state.decreaseAmount);
+
   // destructure item
   const { id, title, image, price, amount } = item;
 
