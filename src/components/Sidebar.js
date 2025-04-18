@@ -1,63 +1,51 @@
-import React, { useEffect } from "react";
-
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
 import { IoMdArrowForward } from "react-icons/io";
 import { FiTrash2 } from "react-icons/fi";
-
 import CartItem from "../components/CartItem";
-import useSidebar from "../stores/useSidebarStore";
-import useCart from "../stores/useCartStore";
+import { handleClose } from "../redux/actions/sidebarActions";
+import { CLEAR_CART } from "../redux/constants/Cartconstants";
+import { selectCartItems, selectCartItemAmount, selectCartTotal } from "../redux/selectors/cartSelectors";
+import { selectSidebarIsOpen } from "../redux/selectors/sidebarSelectors";
 
 const Sidebar = () => {
-  const isOpen = useSidebar((state) => state.isOpen);
-  const handleClose = useSidebar((state) => state.handleClose);
-  const cart = useCart((state) => state.cart);
-  const clearCart = useCart((state) => state.clearCart);
-  const itemAmount = useCart((state) => state.itemAmount);
-  const total = useCart((state) => state.total);
-  const setItemAmount = useCart((state) => state.setItemAmount);
-  const setTotal = useCart((state) => state.setTotal);
+  const dispatch = useDispatch();
+  const isOpen = useSelector(selectSidebarIsOpen);
+  const cart = useSelector(selectCartItems);
+  const itemAmount = useSelector(selectCartItemAmount);
+  const total = useSelector(selectCartTotal);
 
-  useEffect(() => {
-    if (cart) {
-      const amount = cart.reduce((accumulator, currentItem) => {
-        return accumulator + currentItem.amount;
-      }, 0);
-
-      const total = cart.reduce((accumulator, currentItem) => {
-        return accumulator + currentItem.price * currentItem.amount;
-      }, 0);
-
-      setTotal(total);
-      setItemAmount(amount);
-    }
-  }, [cart, setItemAmount, setTotal]);
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
 
   return (
     <div
       className={`${
         isOpen ? "right-0" : "-right-full"
-      } "w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] lg:w-[40vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-[35px]"`}
+      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] lg:w-[40vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-[35px]`}
     >
       <div className="flex items-center justify-between py-6 border-b">
-        <div className="uppercase text-sm font-semibold">Shopping Bag ({itemAmount})</div>
+        <div className="uppercase text-sm font-semibold">
+          Shopping Bag ({itemAmount})
+        </div>
         <div
-          onClick={handleClose}
-          className="cursor-poniter w-8 h-8 flex justify-center items-center"
+          onClick={() => dispatch(handleClose())}
+          className="cursor-pointer w-8 h-8 flex justify-center items-center"
         >
           <IoMdArrowForward className="text-2xl" />
         </div>
       </div>
       <div className="flex flex-col gap-y-2 h-[360px] md:h-[480px] lg:h-[420px] overflow-y-auto overflow-x-hidden border-b">
-        {cart.map((item) => {
-          return <CartItem item={item} key={item.id} />;
-        })}
+        {cart.map((item) => (
+          <CartItem item={item} key={item.id} />
+        ))}
       </div>
-      <div className="flex flex-col gap-y-3  mt-4">
+      <div className="flex flex-col gap-y-3 mt-4">
         <div className="flex w-full justify-between items-center">
           <div className="font-semibold">
-            <span className="mr-2">Subtotal:</span> ${" "}
+            <span className="mr-2">Subtotal:</span>${" "}
             {parseFloat(total).toFixed(2)}
           </div>
           <div

@@ -1,23 +1,29 @@
 import React, { useEffect } from "react";
-import Product from '../components/Product'
-import Hero from '../components/Hero'
-import useProduct from "../stores/useProductStore";
+import { useDispatch, useSelector } from "react-redux";
+import Product from '../components/Product';
+import Hero from '../components/Hero';
+import { setProducts } from "../redux/actions/ProductActions";
+import { selectProducts } from "../redux/selectors/productSelectors";
 
 const Home = () => {
-  const { products, setProducts } = useProduct()
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
-      setProducts(data);
+      dispatch(setProducts(data));
     };
     fetchProducts();
-  }, [setProducts]);
+  }, [dispatch]);
 
   const filteredProducts = products.filter((item) => {
     return (
-      item.category === "men's clothing" || item.category === "women's clothing" || item.category === "jewelery"
+      item.category === "men's clothing" ||
+      item.category === "women's clothing" ||
+      item.category === "jewelery"
     );
   });
 
@@ -29,9 +35,7 @@ const Home = () => {
           <h1 className="text-3xl font-semibold mb-10 text-center">Explore Our Products</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 lg:mx-8 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0">
             {filteredProducts.map((product) => {
-              return (
-                <Product product={product} key={product.id}/>
-              );
+              return <Product product={product} key={product.id} />;
             })}
           </div>
         </div>

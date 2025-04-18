@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { IoMdAdd, IoMdClose, IoMdRemove } from "react-icons/io";
-
-import useCart from "../stores/useCartStore";
+import { useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  increaseAmount,
+  decreaseAmount,
+} from "../redux/actions/cartActions";
 
 const CartItem = ({ item }) => {
-  const removeFromCart = useCart((state) => state.removeFromCart);
-  const increaseAmount = useCart((state) => state.increaseAmount);
-  const decreaseAmount = useCart((state) => state.decreaseAmount);
+  const dispatch = useDispatch();
 
   const { id, title, image, price, amount } = item;
 
@@ -27,7 +28,7 @@ const CartItem = ({ item }) => {
               {title}
             </Link>
             <div
-              onClick={() => removeFromCart(id)}
+              onClick={() => dispatch(removeFromCart(id))}
               className="text-xl cursor-pointer"
             >
               <IoMdClose className="text-gray-500 hover:text-red-500 transition" />
@@ -35,22 +36,28 @@ const CartItem = ({ item }) => {
           </div>
           <div className="flex gap-x-2 h-[36px] text-sm">
             <div className="flex flex-1 max-w-[100px] items-center h-full border text-primary font-medium">
-              <div onClick={()=>decreaseAmount(id)} className="h-full flex-1 flex justify-center items-center cursor-pointer">
+              <div
+                onClick={() => dispatch(decreaseAmount(id))}
+                className="h-full flex-1 flex justify-center items-center cursor-pointer"
+              >
                 <IoMdRemove />
               </div>
               <div className="h-full flex justify-center items-center px-2">
                 {amount}
               </div>
-              <div onClick={()=>increaseAmount(id)} className="h-full flex flex-1 justify-center items-center cursor-pointer">
+              <div
+                onClick={() => dispatch(increaseAmount(id))}
+                className="h-full flex flex-1 justify-center items-center cursor-pointer"
+              >
                 <IoMdAdd />
               </div>
             </div>
             <div className="flex flex-1 justify-around items-center">
               $ {price}
             </div>
-            <div className="flex flex-1 justify-end items-center text-primary font-medium">{`$ ${parseFloat(
-              price * amount
-            ).toFixed(2)}`}</div>
+            <div className="flex flex-1 justify-end items-center text-primary font-medium">
+              {`$ ${parseFloat(price * amount).toFixed(2)}`}
+            </div>
           </div>
         </div>
       </div>

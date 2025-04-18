@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import useSidebar from "../stores/useSidebarStore";
-import useCart from "../stores/useCartStore";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
 import { BsBag } from "react-icons/bs";
+import { setIsOpen } from "../redux/actions/sidebarActions";
+import { selectCartItemAmount } from "../redux/selectors/cartSelectors";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
-  const isOpen = useSidebar((state) => state.isOpen);
-  const setIsOpen = useSidebar((state) => state.setIsOpen);
-  const itemAmount = useCart((state) => state.itemAmount)
+  const dispatch = useDispatch();
+  const itemAmount = useSelector(selectCartItemAmount);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
-    });
-  });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
@@ -26,12 +29,12 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between h-full">
         <Link to={"/"}>
           <div className="w-[40px]">
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="Logo" />
           </div>
         </Link>
 
         <div
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => dispatch(setIsOpen(true))}
           className="cursor-pointer flex relative"
         >
           <BsBag className="text-2xl" />
