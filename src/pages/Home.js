@@ -2,21 +2,15 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Product from '../components/Product';
 import Hero from '../components/Hero';
-import { setProducts } from "../redux/actions/ProductActions";
 import { selectProducts } from "../redux/selectors/productSelectors";
+import { fetchProducts } from "../redux/thunks/fetchProducts";
 
 const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
-  
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      dispatch(setProducts(data));
-    };
-    fetchProducts();
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   const filteredProducts = products.filter((item) => {
