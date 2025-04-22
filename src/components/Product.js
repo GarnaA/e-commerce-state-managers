@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsPlus, BsEyeFill } from "react-icons/bs";
-import { addToCart } from "../redux/actions/cartActions";
+import { addToCart } from "../redux/slices/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
-
   const { id, image, category, title, price } = product;
+
   return (
     <div>
       <div className="border border-[#e4e4e4] h-[300px] mb-4 relative overflow-hidden group transition">
@@ -39,7 +39,6 @@ const Product = ({ product }) => {
         <Link to={`/product/${id}`}>
           <h2 className="font-semibold mb-1">{title}</h2>
         </Link>
-
         <h2 className="font-semibbold">$ {price}</h2>
       </div>
     </div>

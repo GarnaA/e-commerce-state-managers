@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
 import { BsBag } from "react-icons/bs";
-import { setIsOpen } from "../redux/actions/sidebarActions";
+import { setIsOpen } from "../redux/slices/sidebarSlice";
 import { selectCartItemAmount } from "../redux/selectors/cartSelectors";
 
 const Header = () => {

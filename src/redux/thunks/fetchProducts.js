@@ -1,11 +1,9 @@
-import { setProducts } from "../actions/ProductActions";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchProducts = () => async (dispatch) => {
-  try {
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async () => {
     const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
-    dispatch(setProducts(data));
-  } catch (error) {
-    console.error("Failed to fetch products:", error);
+    return await response.json();
   }
-};
+);

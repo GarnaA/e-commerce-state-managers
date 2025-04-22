@@ -1,15 +1,12 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { thunk } from 'redux-thunk';
-import { cartReducer } from './reducers/cartReducer';
-import { productReducer } from './reducers/productReducer';
-import { sidebarReducer } from './reducers/sidebarReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './slices/cartSlice';
+import productReducer from './slices/productSlice';
+import sidebarReducer from './slices/sidebarSlice';
 
-const rootReducer = combineReducers({
-  cart: cartReducer,
-  product: productReducer,
-  sidebar: sidebarReducer,
+export const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+    product: productReducer,
+    sidebar: sidebarReducer,
+  },
 });
-
-const store = createStore(rootReducer, applyMiddleware(thunk));
-
-export default store;

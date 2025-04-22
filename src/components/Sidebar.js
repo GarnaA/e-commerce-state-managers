@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 import { IoMdArrowForward } from "react-icons/io";
 import { FiTrash2 } from "react-icons/fi";
 import CartItem from "../components/CartItem";
-import { handleClose } from "../redux/actions/sidebarActions";
-import { CLEAR_CART } from "../redux/constants/Cartconstants";
-import { selectCartItems, selectCartItemAmount, selectCartTotal } from "../redux/selectors/cartSelectors";
+import { setIsOpen } from "../redux/slices/sidebarSlice";
+import { clearCart } from "../redux/slices/cartSlice";
+import {
+  selectCartItems,
+  selectCartItemAmount,
+  selectCartTotal,
+} from "../redux/selectors/cartSelectors";
 import { selectSidebarIsOpen } from "../redux/selectors/sidebarSelectors";
 
 const Sidebar = () => {
@@ -15,10 +19,6 @@ const Sidebar = () => {
   const cart = useSelector(selectCartItems);
   const itemAmount = useSelector(selectCartItemAmount);
   const total = useSelector(selectCartTotal);
-
-  const clearCart = () => {
-    dispatch({ type: CLEAR_CART });
-  };
 
   return (
     <div
@@ -31,7 +31,7 @@ const Sidebar = () => {
           Shopping Bag ({itemAmount})
         </div>
         <div
-          onClick={() => dispatch(handleClose())}
+          onClick={() => dispatch(setIsOpen(false))}
           className="cursor-pointer w-8 h-8 flex justify-center items-center"
         >
           <IoMdArrowForward className="text-2xl" />
@@ -49,7 +49,7 @@ const Sidebar = () => {
             {parseFloat(total).toFixed(2)}
           </div>
           <div
-            onClick={clearCart}
+            onClick={() => dispatch(clearCart())}
             className="cursor-pointer py-4 bg-red-500 text-white w-12 h-12 flex justify-center items-center text-xl"
           >
             <FiTrash2 />
