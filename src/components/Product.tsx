@@ -1,8 +1,7 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsPlus, BsEyeFill } from "react-icons/bs";
-import { addToCart } from "../redux/slices/cartSlice";
+import { addToCart } from "../app/features/cart/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();

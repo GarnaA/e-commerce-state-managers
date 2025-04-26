@@ -1,17 +1,16 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { IoMdArrowForward } from "react-icons/io";
 import { FiTrash2 } from "react-icons/fi";
-import CartItem from "../components/CartItem";
-import { setIsOpen } from "../redux/slices/sidebarSlice";
-import { clearCart } from "../redux/slices/cartSlice";
+import CartItem from "./CartItem";
+import { setIsOpen } from "../app/features/sidebar/sidebarSlice";
+import { clearCart } from "../app/features/cart/cartSlice";
 import {
   selectCartItems,
   selectCartItemAmount,
   selectCartTotal,
-} from "../redux/selectors/cartSelectors";
-import { selectSidebarIsOpen } from "../redux/selectors/sidebarSelectors";
+} from "../app/features/cart/cartSelectors";
+import { selectSidebarIsOpen } from "../app/features/sidebar/sidebarSelectors";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -46,7 +45,7 @@ const Sidebar = () => {
         <div className="flex w-full justify-between items-center">
           <div className="font-semibold">
             <span className="mr-2">Subtotal:</span>${" "}
-            {parseFloat(total).toFixed(2)}
+            {total.toFixed(2)}
           </div>
           <div
             onClick={() => dispatch(clearCart())}
