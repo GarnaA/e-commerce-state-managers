@@ -3,7 +3,7 @@ name: CI - Build and Test
 on:
   pull_request:
     branches:
-      - typescript
+      - main
 
 jobs:
   build-and-test:
